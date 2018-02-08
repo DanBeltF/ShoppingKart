@@ -4,6 +4,7 @@
 
 Ahora, va a realizar un primer prototipo de un ‘carrito de compras’. Para esto, clone el proyecto
 disponible en https://github.com/PDSW-ECI/Primefaces-ShoppingKart-base.git.
+
 El proyecto incluye la dependencia:
 
 ```xml
@@ -12,9 +13,12 @@ El proyecto incluye la dependencia:
  <version>1.2</version>
 ```
 
+
+
 La cual provee un API que permite consultar una base de datos de productos, e incluye
-operaciones para calcular el costo total de un conjunto de ítems (donde cada ítem consta de un
-producto y una cantidad requerida de dicho producto).
+operaciones para calcular el costo total de un conjunto de ítems, donde cada ítem consta de un producto y una cantidad requerida de dicho producto. Por ser una dependencia Maven, usted no tiene acceso a sus fuentes, sin embargo, con el siguiente modelo se pueden indentificar las clases y métodos disponibles:
+
+![](img/modelo-dependencia.png)
 
 La aplicación ya tiene una página base (shoppingkart.xhtml), y una clase que podrá servir como
 BackingBean (ShoppingKartBackingBean) la cual aún no tiene todas las anotaciones ni los métodos
