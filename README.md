@@ -1,5 +1,8 @@
 # Primefaces-ShoppingKart-base
 
+Desarrolle la primera parte de este ejercicio en [este link](https://github.com/PDSW-ECI/MVC_Frameworks_JSF_Intro).
+
+
 ### Parte II
 
 Ahora, va a realizar un primer prototipo de un ‘carrito de compras’. Para esto, clone el proyecto
