@@ -1,11 +1,62 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3c.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:p="http://primefaces.org/ui">
-    <h:head></h:head>
-
+      xmlns:p="http://primefaces.org/ui" 
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <title>ShoppingKart</title>
+    </h:head>
     <h:body>
-        Shopping kart: under construction!
-    </h:body>
+        <p:layout fullPage="true">
+            <p:layoutUnit position="center" resizable="true" style="text-align: center" header="Productos">
+                <p:dataTable id="dtProductos" var="p" value="#{KartBean.productos}">
+                    <p:column headerText="Id">
+                        <h:outputText value="#{p.id}" />
+                    </p:column>
+                    <p:column headerText="Nombre">
+                        <h:outputText value="#{p.nombre}" />
+                    </p:column>                    
+                    <p:column headerText="Precio (USD)" >
+                        <h:outputText value="#{p.precioEnUSD}" />
+                    </p:column>
+                    
+                    <p:column headerText="Cantidad">
+                        <h:inputText required="true" value="#{KartBean.cantidad}" converter="javax.faces.convert.IntegerConverter">
+                            
+                        </h:inputText>
+                    </p:column>
+                    
+                    <p:column style="width:32px">
+                        <p:commandButton update=":dtKart" title="View" action="#{KartBean.agregarAlCarrito()}" icon="ui-icon-search">
+                            <f:actionListener binding="#{KartBean.setSeleccionProducto(p)}"/>
+                        </p:commandButton>
+                    </p:column>
 
+                </p:dataTable>
+            </p:layoutUnit>
+
+            <p:layoutUnit position="east" resizable="true" collapsible="true" style="text-align: center" header="Carro de Compras">
+                <p:dataTable id="dtKart" var="k" value="#{KartBean.coleccionItems}" style="text-align: center">
+                    <p:column headerText="Id">
+                        <h:outputText value="#{k.producto.id}" />
+                    </p:column>
+                    <p:column headerText="Nombre">
+                        <h:outputText value="#{k.producto.nombre}" />
+                    </p:column>
+                    <p:column headerText="Precio(USD)">
+                        <h:outputText value="#{k.producto.precioEnUSD}" />
+                    </p:column>
+                    <p:column headerText="Cantidad">
+                        <h:outputText value="#{k.cantidad}" />
+                    </p:column>               
+                </p:dataTable>
+                <br/>
+                <h:panelGrid columns="2">
+                    <p:commandButton value="Calcular costos" update="costos" actionListener="#{KartBean.calcularCostos}" icon="ui-icon-calculator"/>
+                    <p:outputLabel id="costos" value="$#{KartBean.calcularCostos}" style="color: green"/>
+                </h:panelGrid>
+            </p:layoutUnit>
+        </p:layout>
+
+    </h:body>
 </html>

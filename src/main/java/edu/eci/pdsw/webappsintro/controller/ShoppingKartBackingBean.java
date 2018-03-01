@@ -17,8 +17,11 @@
 package edu.eci.pdsw.webappsintro.controller;
 
 import edu.eci.pdsw.stubs.servicesfacadestub.CurrencyServices;
+import edu.eci.pdsw.stubs.servicesfacadestub.ItemPedido;
 import edu.eci.pdsw.stubs.servicesfacadestub.Producto;
 import edu.eci.pdsw.stubs.servicesfacadestub.ProductsServices;
+import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
@@ -27,8 +30,68 @@ import javax.faces.bean.SessionScoped;
  *
  * @author hcadavid
  */
-public class ShoppingKartBackingBean {
+@ManagedBean(name = "KartBean")
+@SessionScoped
+public class ShoppingKartBackingBean implements Serializable{
+
+    private Producto seleccionProducto;
+    private Integer cantidad;
+    private ItemPedido nuevoItem;
+    private List<ItemPedido> coleccionItems;
     
+    
+    public ShoppingKartBackingBean() {
+       coleccionItems = new ArrayList<>();
+       seleccionProducto = null;//new Producto(seleccionProducto.getId(), seleccionProducto.getNombre(), seleccionProducto.getPrecioEnUSD());
+       cantidad = 0;
+       nuevoItem = null;
+    }
+
+    public Producto getSeleccionProducto() {
+        return seleccionProducto;
+    }
+
+    public void setSeleccionProducto(Producto seleccionProducto) {
+        this.seleccionProducto = seleccionProducto;
+    }
+
+    public Integer getCantidad() {
+        return cantidad;
+    }
+
+    public void setCantidad(Integer cantidad) {
+        this.cantidad = cantidad;
+    }
+
+    public ItemPedido getNuevoItem() {
+        return nuevoItem;
+    }
+
+    public void setNuevoItem(ItemPedido nuevoItem) {
+        this.nuevoItem = nuevoItem;
+    }
+
+    public List<ItemPedido> getColeccionItems() {
+        return coleccionItems;
+    }
+
+    public void setColeccionItems(List<ItemPedido> coleccionItems) {
+        this.coleccionItems = coleccionItems;
+    }
+
+    public double getCalcularCostos() {
+        double costoT = 0;
+        for (ItemPedido i : coleccionItems){
+            costoT += i.getCantidad() * i.getProducto().getPrecioEnUSD();
+        }
+        return costoT;
+    }
+
+    
+    public void agregarAlCarrito(){
+        ItemPedido i = new ItemPedido(seleccionProducto, cantidad);
+        coleccionItems.add(i);
+    }
     
     public List<Producto> getProductos(){
         return ProductsServices.getInstance().getProductos();
