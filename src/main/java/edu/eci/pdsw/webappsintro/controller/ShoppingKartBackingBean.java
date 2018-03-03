@@ -38,13 +38,15 @@ public class ShoppingKartBackingBean implements Serializable{
     private Integer cantidad;
     private ItemPedido nuevoItem;
     private List<ItemPedido> coleccionItems;
+    private double costoT;
     
     
     public ShoppingKartBackingBean() {
        coleccionItems = new ArrayList<>();
-       seleccionProducto = null;//new Producto(seleccionProducto.getId(), seleccionProducto.getNombre(), seleccionProducto.getPrecioEnUSD());
+       //seleccionProducto = null;//new Producto(seleccionProducto.getId(), seleccionProducto.getNombre(), seleccionProducto.getPrecioEnUSD());
        cantidad = 0;
        nuevoItem = null;
+       costoT = 0;
     }
 
     public Producto getSeleccionProducto() {
@@ -80,17 +82,21 @@ public class ShoppingKartBackingBean implements Serializable{
     }
 
     public double getCalcularCostos() {
-        double costoT = 0;
-        for (ItemPedido i : coleccionItems){
-            costoT += i.getCantidad() * i.getProducto().getPrecioEnUSD();
+        if (coleccionItems.size() > 0) {
+            for (ItemPedido i : coleccionItems) {
+                costoT += i.getCantidad() * i.getProducto().getPrecioEnUSD();
+            }
+        } else {
+            costoT = 0;
         }
         return costoT;
     }
 
     
     public void agregarAlCarrito(){
-        ItemPedido i = new ItemPedido(seleccionProducto, cantidad);
-        coleccionItems.add(i);
+        nuevoItem = new ItemPedido(seleccionProducto, cantidad);
+        coleccionItems.add(nuevoItem);
+        cantidad = 0;
     }
     
     public List<Producto> getProductos(){

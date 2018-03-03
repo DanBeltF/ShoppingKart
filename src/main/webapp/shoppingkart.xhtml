@@ -8,8 +8,8 @@
     </h:head>
     <h:body>
         <p:layout fullPage="true">
-            <p:layoutUnit position="center" resizable="true" style="text-align: center" header="Productos">
-                <p:dataTable id="dtProductos" var="p" value="#{KartBean.productos}">
+            <p:layoutUnit position="center" resizable="true" style="text-align: center" header="Productos" >
+                <p:dataTable id="dtProductos" var="p" value="#{KartBean.productos}" selectionMode="single" selection="#{KartBean.nuevoItem}" rowKey="#{p.id}">
                     <p:column headerText="Id">
                         <h:outputText value="#{p.id}" />
                     </p:column>
@@ -21,14 +21,11 @@
                     </p:column>
                     
                     <p:column headerText="Cantidad">
-                        <h:inputText required="true" value="#{KartBean.cantidad}" converter="javax.faces.convert.IntegerConverter">
-                            
-                        </h:inputText>
+                        <p:inputText required="true" value="#{KartBean.cantidad}"/>
                     </p:column>
                     
-                    <p:column style="width:32px">
-                        <p:commandButton update=":dtKart" title="View" action="#{KartBean.agregarAlCarrito()}" icon="ui-icon-search">
-                            <f:actionListener binding="#{KartBean.setSeleccionProducto(p)}"/>
+                    <p:column style="width:52px">
+                        <p:commandButton update=":dtProductos,:dtKart" actionListener="#{KartBean.agregarAlCarrito()}" icon="ui-icon-cart" >
                         </p:commandButton>
                     </p:column>
 
